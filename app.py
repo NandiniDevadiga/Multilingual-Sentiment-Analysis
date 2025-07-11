@@ -32,7 +32,7 @@ if st.button("Analyze"):
 pred_label = label_map.get(result["label"], result["label"])
 st.success(f"Sentiment: **{pred_label}** (Confidence: {round(result['score'], 2)})")
 
-    else:
+ else:
         st.warning("Please enter some text.")
 
 # -------------------------
