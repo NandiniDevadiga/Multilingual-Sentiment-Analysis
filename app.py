@@ -46,7 +46,7 @@ if uploaded_file:
     else:
         st.info("Analyzing sentiments... please wait ⏳")
 
-        label_map = {"LABEL_0": "Negative", "LABEL_1": "Positive"}
+        label_map = {"LABEL_0": "Positive", "LABEL_1": "Negative"}
         df['prediction'] = df['text'].apply(lambda x: label_map.get(classifier(str(x))[0]['label']))
 
         st.subheader("📊 Sentiment Counts")
