@@ -1,0 +1,7 @@
+streamlit
+transformers
+arabic-reshaper
+python-bidi
+wordcloud
+matplotlib
+pandas
