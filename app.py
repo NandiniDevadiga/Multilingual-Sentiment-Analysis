@@ -27,7 +27,7 @@ text = st.text_area("Enter review text (English or Arabic):", height=100)
 if st.button("Analyze"):
     if text.strip():
         result = classifier(text)[0]
-        label_map = {"LABEL_0": "Negative", "LABEL_1": "Positive"}
+        label_map = {"LABEL_0": "Positive", "LABEL_1": "Negative"}
         pred_label = label_map.get(result["label"], result["label"])
         st.success(f"Sentiment: **{pred_label}** (Confidence: {round(result['score'], 2)})")
     else:
