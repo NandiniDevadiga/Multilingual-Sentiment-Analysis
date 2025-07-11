@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 
 st.set_page_config(page_title="Multilingual Sentiment Analyzer", layout="centered")
-
 st.title("🌍 Multilingual Sentiment Analysis (English + Arabic)")
 
 # Load sentiment pipeline
@@ -29,10 +28,9 @@ if st.button("Analyze"):
     if text.strip():
         result = classifier(text)[0]
         label_map = {"LABEL_0": "Negative", "LABEL_1": "Positive"}
-pred_label = label_map.get(result["label"], result["label"])
-st.success(f"Sentiment: **{pred_label}** (Confidence: {round(result['score'], 2)})")
-
- else:
+        pred_label = label_map.get(result["label"], result["label"])
+        st.success(f"Sentiment: **{pred_label}** (Confidence: {round(result['score'], 2)})")
+    else:
         st.warning("Please enter some text.")
 
 # -------------------------
@@ -47,7 +45,9 @@ if uploaded_file:
         st.error("CSV must contain a column named 'text'.")
     else:
         st.info("Analyzing sentiments... please wait ⏳")
-        df['prediction'] = df['text'].apply(lambda x: classifier(str(x))[0]['label'])
+
+        label_map = {"LABEL_0": "Negative", "LABEL_1": "Positive"}
+        df['prediction'] = df['text'].apply(lambda x: label_map.get(classifier(str(x))[0]['label']))
 
         st.subheader("📊 Sentiment Counts")
         sentiment_counts = df['prediction'].value_counts()
@@ -66,6 +66,6 @@ if uploaded_file:
 
             wc = WordCloud(width=800, height=300, background_color="white", font_path="arial").generate(text_blob)
             st.image(wc.to_array(), caption=f"Word Cloud: {sentiment}")
-        
+
         st.subheader("📄 Full Output")
         st.dataframe(df[['text', 'prediction']])
